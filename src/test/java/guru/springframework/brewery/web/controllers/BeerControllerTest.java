@@ -1,5 +1,6 @@
 package guru.springframework.brewery.web.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.springframework.brewery.services.BeerService;
 import guru.springframework.brewery.web.model.BeerDto;
 import guru.springframework.brewery.web.model.BeerPagedList;
@@ -16,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -58,7 +60,8 @@ class BeerControllerTest {
                 .createdDate(OffsetDateTime.now())
                 .build();
 
-        mockMvc = MockMvcBuilders.standaloneSetup(beerController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(beerController)
+                .setMessageConverters(jackson2HttpMessageConverter()).build();
     }
 
     @Test
@@ -119,5 +122,10 @@ class BeerControllerTest {
                     .andExpect(jsonPath("$.content", hasSize(2)))
                     .andExpect(jsonPath("$.content[0].id", is(validBeer.getId().toString())));
         }
+    }
+
+    public MappingJackson2HttpMessageConverter jackson2HttpMessageConverter() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return new MappingJackson2HttpMessageConverter();
     }
 }

@@ -140,3 +140,5 @@ Desktop.ini
 .eslintcache
 /.idea/
 
+/target/generated-sources/annotations/guru/springframework/brewery/web/mappers/BeerMapperImpl.java
+/target/generated-sources/annotations/guru/springframework/brewery/web/mappers/BeerOrderMapperImpl.java

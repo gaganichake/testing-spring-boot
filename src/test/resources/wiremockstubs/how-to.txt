@@ -1,0 +1,4 @@
+https://wiremock.org/docs/running-standalone/
+http://127.0.0.1:8080/__admin/recorder/
+
+java -jar wiremock-jre8-standalone-2.32.0.jar --bind-address 127.0.0.1
